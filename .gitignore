@@ -1,4 +1,6 @@
 # Custom ignore files :
+.vscode
+
 data
 **/*.csv
 
