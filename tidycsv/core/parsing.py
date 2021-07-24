@@ -6,12 +6,13 @@ from pathlib import Path
 from typing import Dict, List, Union
 from functools import reduce
 
-__all__ = ["get_csv_counts"]
+__all__ = ["get_csv_counts", "get_maximum_csv_group"]
 
 
 def get_csv_counts(file: Union[str, Path]) -> Dict[int, List[str]]:
     """
-    Get groups of semantically consistsent
+    Get groups of semantically consistsent csv lines.
+    i.e. same number of commas
 
     Parameters
     ----------
@@ -51,6 +52,8 @@ def get_csv_counts(file: Union[str, Path]) -> Dict[int, List[str]]:
     return csv_counts
 
 
-def get_biggest_():
-    pass
-    # return reduce(lambda x, y: x if len(x[1]) > len(y[1]) else y, csv_counts.items())
+def get_maximum_csv_group(csv_counts: Dict[int, List[str]]) -> List[str]:
+    """Get the list with the maximum number of
+    semantically consistent csv lines, from
+    a dictionary of number of lines"""
+    return reduce(lambda x, y: x if len(x[1]) > len(y[1]) else y, csv_counts.items())[1]
