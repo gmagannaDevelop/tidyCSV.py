@@ -34,3 +34,16 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+
+      - name: bootstrap python
+        run: |
+          sudo apt install -y git
+          sudo apt install -y curl
+          sudo apt install -y make
+          #sudo apt install -y gfortran
+          sudo apt install -y g++
+          sudo apt install -y libxml2-dev
+          sudo apt install -y python3-distutils
+          sudo apt-get install -y liblapacke-dev 
+          #sudo apt-get install -y libblas-dev 
+          curl https://bootstrap.pypa.io/get-pip.py | sudo python3
