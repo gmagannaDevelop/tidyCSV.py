@@ -45,7 +45,6 @@ jobs:
         run: |
           go get -u github.com/tanaikech/goodls
           export GOODLS_BIN=$(go env GOPATH)/bin/goodls
-          $GOODLS_BIN
 
       #    sed 's/:/\n/g' <<< "$PATH"
       #- name: Create poetry environment
