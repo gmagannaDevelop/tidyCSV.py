@@ -24,33 +24,9 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+      # use poetry on github actions :
       - uses: Gr1N/setup-poetry@v7
 
-      # Runs a single command using the runners shell
-      #- name: Run a one-line script
-      #  run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      #- name: Run a multi-line script
-      #  run: |
-      #    echo Add other actions to build,
-      #    echo test, and deploy your project.
-
-      - name: Test poetry
+      - name: Create env and install
         run: |
-          which poetry
           poetry install
-          poetry shell
-
-      - name: bootstrap python
-        run: |
-          sudo apt install -y git
-          sudo apt install -y curl
-          sudo apt install -y make
-          #sudo apt install -y gfortran
-          sudo apt install -y g++
-          sudo apt install -y libxml2-dev
-          sudo apt install -y python3-distutils
-          sudo apt-get install -y liblapacke-dev 
-          #sudo apt-get install -y libblas-dev 
-          curl https://bootstrap.pypa.io/get-pip.py | sudo python3
