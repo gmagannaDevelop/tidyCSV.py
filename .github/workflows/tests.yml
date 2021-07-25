@@ -30,6 +30,9 @@ jobs:
       - name: check if path is set
         run: sed 's/:/\n/g' <<< "$PATH"
 
+      - name: prepend to path
+        run: export PATH=$(go env GOPATH)/bin:$PATH
+
       - name: reload and recheck
         run: |
           source ~/.bashrc
