@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: pytests
+name: tests
 
 # Controls when the workflow will run
 on:
@@ -27,14 +27,22 @@ jobs:
       # use go on github actions
       - uses: actions/setup-go@v2
 
-      - name: Install goodls
-        run: go get -u github.com/tanaikech/goodls
+      - name: check if path is set
+        run: sed 's/:/\n/g' <<< "$PATH"
 
-      - name: Create poetry environment
-        run: poetry install
-
-      # Runs a set of commands using the runners shell
-      - name: Download the data directory
+      - name: reload and recheck
         run: |
-          export GOODLS_APIKEY=${{ secrets.GDRIVE_API_KEY }}
-          goodls -u ${{ secrets.GDRIVE_REPO_URL }}
+          source ~/.bashrc
+          sed 's/:/\n/g' <<< "$PATH"
+          which goodls
+      #- name: Install goodls
+      #  run: |
+      #    go get -u github.com/tanaikech/goodls
+      #    sed 's/:/\n/g' <<< "$PATH"
+      #- name: Create poetry environment
+      #  run: poetry install
+      ## Runs a set of commands using the runners shell
+      #- name: Download the data directory
+      #  run: |
+      #    export GOODLS_APIKEY=${{ secrets.GDRIVE_API_KEY }}
+      #    goodls -u ${{ secrets.GDRIVE_REPO_URL }}
