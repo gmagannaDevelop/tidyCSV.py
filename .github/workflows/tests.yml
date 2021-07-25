@@ -27,27 +27,32 @@ jobs:
       # use go on github actions
       - uses: actions/setup-go@v2
 
-      - name: check if path is set
-        run: sed 's/:/\n/g' <<< "$PATH"
+      #- name: check if path is set
+      #  run: sed 's/:/\n/g' <<< "$PATH"
 
-      - name: prepend to path
-        run: |
-          echo 'export PATH=$(go env GOPATH)/bin:$PATH' >> ~/.bashrc
-          #cat ~/.bashrc
+      #- name: prepend to path
+      #  run: |
+      #    echo 'export PATH=$(go env GOPATH)/bin:$PATH' >> ~/.bashrc
+      #    #cat ~/.bashrc
 
-      - name: reload and recheck
-        run: |
-          source ~/.bashrc
-          cat ~/.bashrc
-          sed 's/:/\n/g' <<< "$PATH"
+      #- name: reload and recheck
+      #  run: |
+      #    source ~/.bashrc
+      #    cat ~/.bashrc
+      #    sed 's/:/\n/g' <<< "$PATH"
 
-      - name: Install goodls and download data
+      - name: please just work
         env:
-          GOODLS_APIKEY: ${{ secrets.GDRIVE_API_KEY }}
-          REPO_URL: ${{ secrets.GDRIVE_REPO_URL }}
-        run: |
-          ls
-          go get -u github.com/tanaikech/goodls
-          export GOODLS_BIN=$(go env GOPATH)/bin/goodls
-          $GOODLS_BIN -u $REPO_URL 
-          ls
+          TEST: ${{ secrets.TEST_SECRET }}
+        run: echo $TEST
+      #- name: Install goodls and download data
+      #  env:
+      #    GOODLS_APIKEY: ${{ secrets.GDRIVE_API_KEY }}
+      #    REPO_URL: ${{ secrets.GDRIVE_REPO_URL }}
+      #    TEST: ${{ secrets.TEST_SECRET }}
+      #  run: |
+      #    ls
+      #    go get -u github.com/tanaikech/goodls
+      #    export GOODLS_BIN=$(go env GOPATH)/bin/goodls
+      #    $GOODLS_BIN -u $REPO_URL
+      #    ls
