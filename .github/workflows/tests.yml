@@ -41,16 +41,11 @@ jobs:
           cat ~/.bashrc
           sed 's/:/\n/g' <<< "$PATH"
 
-      - name: Install goodls
+      - name: Install goodls and download data
         run: |
+          ls
           go get -u github.com/tanaikech/goodls
           export GOODLS_BIN=$(go env GOPATH)/bin/goodls
-
-      #    sed 's/:/\n/g' <<< "$PATH"
-      #- name: Create poetry environment
-      #  run: poetry install
-
-      - name: Download the data directory
-        run: |
           export GOODLS_APIKEY=${{ secrets.GDRIVE_API_KEY }}
           $GOODLS_BIN -u ${{ secrets.GDRIVE_REPO_URL }}
+          ls
