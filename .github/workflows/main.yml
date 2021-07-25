@@ -27,7 +27,7 @@ jobs:
       # use poetry on github actions :
       - uses: Gr1N/setup-poetry@v7
 
-      - name: Create env and install
+      - name: Create env and install package
         run: |
           poetry install
           poetry build
