@@ -42,10 +42,12 @@ jobs:
           sed 's/:/\n/g' <<< "$PATH"
 
       - name: Install goodls and download data
+        env:
+          GOODLS_APIKEY: ${{ secrets.GDRIVE_API_KEY }}
+          REPO_URL: ${{ secrets.GDRIVE_REPO_URL }}
         run: |
           ls
           go get -u github.com/tanaikech/goodls
           export GOODLS_BIN=$(go env GOPATH)/bin/goodls
-          export GOODLS_APIKEY=${{ secrets.GDRIVE_API_KEY }}
-          $GOODLS_BIN -u ${{ secrets.GDRIVE_REPO_URL }}
+          $GOODLS_BIN -u $REPO_URL 
           ls
