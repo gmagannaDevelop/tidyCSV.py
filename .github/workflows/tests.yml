@@ -32,7 +32,7 @@ jobs:
 
       - name: prepend to path
         run: |
-          echo "export PATH=$(go env GOPATH)/bin:$PATH" >> ~/.bashrc
+          echo 'export PATH=$(go env GOPATH)/bin:$PATH' >> ~/.bashrc
 
       - name: reload and recheck
         run: |
