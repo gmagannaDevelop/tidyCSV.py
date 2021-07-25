@@ -44,6 +44,7 @@ jobs:
       - name: please just work
         env:
           TEST: ${{ secrets.TEST_SECRET }}
+          HOLA: ${{ secrets.HOLA }}
         run: echo $TEST
       #- name: Install goodls and download data
       #  env:
