@@ -32,14 +32,12 @@ jobs:
 
       - name: prepend to path
         run: |
-          export PATH=$(go env GOPATH)/bin:$PATH
-          echo $(which goodls)
+          echo "export PATH=$(go env GOPATH)/bin:$PATH" >> ~/.bashrc
 
       - name: reload and recheck
         run: |
           source ~/.bashrc
           sed 's/:/\n/g' <<< "$PATH"
-          which goodls
       #- name: Install goodls
       #  run: |
       #    go get -u github.com/tanaikech/goodls
