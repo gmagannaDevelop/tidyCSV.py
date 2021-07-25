@@ -30,3 +30,5 @@ jobs:
       - name: Create env and install
         run: |
           poetry install
+          poetry build
+          pip3 install "dist/$(ls -t dist | head -1)"
