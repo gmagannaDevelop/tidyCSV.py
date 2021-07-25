@@ -33,21 +33,25 @@ jobs:
       - name: prepend to path
         run: |
           echo 'export PATH=$(go env GOPATH)/bin:$PATH' >> ~/.bashrc
-          cat ~/.bashrc
+          #cat ~/.bashrc
 
       - name: reload and recheck
         run: |
           source ~/.bashrc
           cat ~/.bashrc
           sed 's/:/\n/g' <<< "$PATH"
-      #- name: Install goodls
-      #  run: |
-      #    go get -u github.com/tanaikech/goodls
+
+      - name: Install goodls
+        run: |
+          go get -u github.com/tanaikech/goodls
+          export GOODLS_BIN=$(go env GOPATH)/bin/goodls
+          $GOODLS_BIN
+
       #    sed 's/:/\n/g' <<< "$PATH"
       #- name: Create poetry environment
       #  run: poetry install
-      ## Runs a set of commands using the runners shell
-      #- name: Download the data directory
-      #  run: |
-      #    export GOODLS_APIKEY=${{ secrets.GDRIVE_API_KEY }}
-      #    goodls -u ${{ secrets.GDRIVE_REPO_URL }}
+
+      - name: Download the data directory
+        run: |
+          export GOODLS_APIKEY=${{ secrets.GDRIVE_API_KEY }}
+          $GOODLS_BIN -u ${{ secrets.GDRIVE_REPO_URL }}
