@@ -25,7 +25,7 @@ jobs:
       # use poetry on github actions :
       - uses: Gr1N/setup-poetry@v7
       # use go on github actions
-      uses: actions/setup-go@v2
+      - uses: actions/setup-go@v2
 
       - name: Install goodls
         run: go get -u github.com/tanaikech/goodls
