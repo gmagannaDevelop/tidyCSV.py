@@ -2,6 +2,7 @@
 
 [![CI build](https://github.com/gmagannaDevelop/tidyCSV.py/actions/workflows/main.yml/badge.svg)](https://github.com/gmagannaDevelop/tidyCSV.py/actions/workflows/main.yml)
 [![mypy](https://github.com/gmagannaDevelop/tidyCSV.py/actions/workflows/mypy.yml/badge.svg)](https://github.com/gmagannaDevelop/tidyCSV.py/actions/workflows/mypy.yml)
+[![tests](https://github.com/gmagannaDevelop/tidyCSV.py/actions/workflows/tests.yml/badge.svg)](https://github.com/gmagannaDevelop/tidyCSV.py/actions/workflows/tests.yml)
 ![](https://enlyvfs9zh2z4g7.m.pipedream.net)
 
 ![](https://img.shields.io/github/last-commit/gmagannaDevelop/tidyCSV.py)
