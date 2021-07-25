@@ -35,4 +35,6 @@ jobs:
       - name: Lint the code
         run: |
           poetry install
-          poetry run pylint tidycsv/ --ignore=utils
+          #poetry run pylint tidycsv/ --ignore=utils
+          poetry run pylint tidycsv/ --ignore=utils | grep -Po '(?<=at)\s(\d\.\d{1,2}|\d\d)/10' | cat > pylint-score.txt
+          curl -d "{ \"pylint_score\": \"$(cat pylint-score.txt)\" }" -H "Content-Type: application/json" https://enlyvfs9zh2z4g7.m.pipedream.net
