@@ -31,5 +31,5 @@ jobs:
 
       - name: Run mypy to check types
         run: |
-          poetry run mypy tidy
+          poetry run mypy tidycsv
           
