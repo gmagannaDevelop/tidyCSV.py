@@ -32,3 +32,12 @@ jobs:
           poetry install
           poetry build
           pip3 install "dist/$(ls -t dist | head -1)"
+
+      - name: Trigger linting workflow
+        if: success()
+        uses: peter-evans/repository-dispatch@v1
+        with:
+          token: ${{ secrets.TIDYCSV_GHA_PAT }}
+          repository: ${{ github.repository }}
+          event-type: successful-build-1
+          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
