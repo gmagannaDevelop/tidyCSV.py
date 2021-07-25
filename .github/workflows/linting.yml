@@ -36,5 +36,8 @@ jobs:
         run: |
           poetry install
           #poetry run pylint tidycsv/ --ignore=utils
-          poetry run pylint tidycsv/ --ignore=utils | grep -Po '(?<=at)\s(\d\.\d{1,2}|\d\d)/10' | cat > pylint-score.txt
+          #poetry run pylint tidycsv/ --ignore=utils | grep -Po '(?<=at)\s(\d\.\d{1,2}|\d\d)/10' | cat > pylint-score.txt
+          # remove ignore utils to eval my badge setup (it is kinda hacky)
+          # TODO : split all of the parts of this job into separate jobs.
+          poetry run pylint tidycsv/ | grep -Po '(?<=at)\s(\d\.\d{1,2}|\d\d)/10' | cat > pylint-score.txt
           curl -d "{ \"pylint_score\": \"$(cat pylint-score.txt)\" }" -H "Content-Type: application/json" https://enlyvfs9zh2z4g7.m.pipedream.net
