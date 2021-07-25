@@ -41,23 +41,26 @@ jobs:
       #    cat ~/.bashrc
       #    sed 's/:/\n/g' <<< "$PATH"
 
-      - name: please just work
-        env:
-          TEST: ${{ secrets.TEST_SECRET }}
-          HOLA: ${{ secrets.HOLA }}
-        run: |
-          echo $TEST
-          echo $HOLA
-          [[ ! -z "$TEST" ]] && echo "Not empty" || echo "Empty"
-          [[ ! -z "$HOLA" ]] && echo "Not empty" || echo "Empty"
-      #- name: Install goodls and download data
+      #- name: please just work
       #  env:
-      #    GOODLS_APIKEY: ${{ secrets.GDRIVE_API_KEY }}
-      #    REPO_URL: ${{ secrets.GDRIVE_REPO_URL }}
       #    TEST: ${{ secrets.TEST_SECRET }}
+      #    HOLA: ${{ secrets.HOLA }}
       #  run: |
-      #    ls
-      #    go get -u github.com/tanaikech/goodls
-      #    export GOODLS_BIN=$(go env GOPATH)/bin/goodls
-      #    $GOODLS_BIN -u $REPO_URL
-      #    ls
+      #    echo $TEST
+      #    echo $HOLA
+      #    [[ ! -z "$TEST" ]] && echo "Not empty" || command_not_found
+      #    [[ ! -z "$HOLA" ]] && echo "Not empty" || command_not_found
+
+      - name: Install goodls and download data
+        env:
+          GOODLS_APIKEY: ${{ secrets.GDRIVE_API_KEY }}
+          REPO_URL: ${{ secrets.GDRIVE_REPO_URL }}
+          TEST: ${{ secrets.TEST_SECRET }}
+        run: |
+          [[ ! -z "$GOODLS_APIKEY" ]] && echo "Not empty" || command_not_found
+          [[ ! -z "$REPO_URL" ]] && echo "Not empty" || command_not_found
+          ls
+          go get -u github.com/tanaikech/goodls
+          export GOODLS_BIN=$(go env GOPATH)/bin/goodls
+          $GOODLS_BIN -u $REPO_URL
+          ls
