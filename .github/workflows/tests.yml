@@ -27,8 +27,12 @@ jobs:
       # use go on github actions
       - uses: actions/setup-go@v2
 
-      #- name: check if path is set
-      #  run: sed 's/:/\n/g' <<< "$PATH"
+      - name: touch something
+        run: |
+          echo
+          ls
+          touch something
+          echo
 
       #- name: prepend to path
       #  run: |
@@ -56,11 +60,14 @@ jobs:
           GOODLS_APIKEY: ${{ secrets.GDRIVE_API_KEY }}
           REPO_URL: ${{ secrets.GDRIVE_REPO_URL }}
           TEST: ${{ secrets.TEST_SECRET }}
+          TEST2: "https://drive.google.com/file/d/1lwC77YvrmirgFx5de9DRtSQVAYpR8DPr/view?usp=sharing"
         run: |
           [[ ! -z "$GOODLS_APIKEY" ]] && echo "Not empty" || command_not_found
           [[ ! -z "$REPO_URL" ]] && echo "Not empty" || command_not_found
           ls
+          echo " "
           go get -u github.com/tanaikech/goodls
           export GOODLS_BIN=$(go env GOPATH)/bin/goodls
-          $GOODLS_BIN -u $REPO_URL
+          $GOODLS_BIN -u $TEST2
+          echo " "
           ls
