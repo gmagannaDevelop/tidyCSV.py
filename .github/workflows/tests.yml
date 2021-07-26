@@ -69,6 +69,7 @@ jobs:
           go get -u github.com/tanaikech/goodls
           export GOODLS_BIN=$(go env GOPATH)/bin/goodls
           echo $GOODLS_BIN
-          $GOODLS_BIN -u "'$TEST2'"
+          echo $TEST2 > sometest.txt
+          $GOODLS_BIN < sometest.txt
           echo " "
           ls
