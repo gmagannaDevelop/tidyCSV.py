@@ -69,7 +69,9 @@ jobs:
           go get -u github.com/tanaikech/goodls
           export GOODLS_BIN=$(go env GOPATH)/bin/goodls
           echo $GOODLS_BIN
-          echo $TEST2 > sometest.txt
-          $GOODLS_BIN < sometest.txt
+          echo $REPO_URL > .repo_url.txt
+          $GOODLS_BIN < .repo_url.txt
+          rm .repo_url.txt
+          mv raw data
           echo " "
           ls
