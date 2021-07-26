@@ -65,9 +65,10 @@ jobs:
           [[ ! -z "$GOODLS_APIKEY" ]] && echo "Not empty" || command_not_found
           [[ ! -z "$REPO_URL" ]] && echo "Not empty" || command_not_found
           ls
-          echo " "
+          echo "$TEST2"
           go get -u github.com/tanaikech/goodls
           export GOODLS_BIN=$(go env GOPATH)/bin/goodls
+          echo $GOODLS_BIN
           $GOODLS_BIN -u $TEST2
           echo " "
           ls
