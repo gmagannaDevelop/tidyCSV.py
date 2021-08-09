@@ -24,29 +24,17 @@ jobs:
           poetry install
           poetry build
           pip3 install "dist/$(ls -t dist | head -1)"
+          export POETRY_ENV_PATH=$(poetry env info -p) 
+          echo "POETRY_ENV_PATH=$POETRY_ENV_PATH" >> $GITHUB_ENV
 
-      - name: Touch things
-        run: |
-          touch some-thing.txt
-          echo "Touched once" >> some-thing.txt
-
-      - name: Verify persistence 1
-        run: |
-          ls
-          cat some-thing.txt
-          echo "Touched twice" >> some-thing.txt
-          cat some-thing.txt
-
-      - name: Verify persistence 2
-        run: |
-          ls
-          cat some-thing.txt
-          echo "Touched three times" >> some-thing.txt
-          cat some-thing.txt
-
-      - name: Verify persistence 3
-        run: |
-          poetry env info -p
+      - name: Cache poetry env
+        uses: actions/cache@v2
+        env:
+          cache-name: poetry-env-cache
+        with:
+          path: ${{ env.POETRY_ENV_PATH }}
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-pyproj-${{ hashFiles('pyproject.toml')}}-lock-${{ hashFiles('poetry.lock')}}
+        run: ls
 
       - name: Trigger linting workflow
         if: success()
