@@ -60,7 +60,6 @@ jobs:
           GOODLS_APIKEY: ${{ secrets.GDRIVE_API_KEY }}
           REPO_URL: ${{ secrets.GDRIVE_REPO_URL }}
           TEST: ${{ secrets.TEST_SECRET }}
-          TEST2: "https://drive.google.com/file/d/1lwC77YvrmirgFx5de9DRtSQVAYpR8DPr/view?usp=sharing"
         run: |
           [[ ! -z "$GOODLS_APIKEY" ]] && echo "Not empty" || command_not_found
           [[ ! -z "$REPO_URL" ]] && echo "Not empty" || command_not_found
