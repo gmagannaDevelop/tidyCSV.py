@@ -25,6 +25,29 @@ jobs:
           poetry build
           pip3 install "dist/$(ls -t dist | head -1)"
 
+      - name: Touch things
+        run: |
+          touch some-thing.txt
+          echo "Touched once" >> some-thing.txt
+
+      - name: Verify persistence 1
+        run: |
+          ls
+          cat some-thing.txt
+          echo "Touched twice" >> some-thing.txt
+          cat some-thing.txt
+
+      - name: Verify persistence 2
+        run: |
+          ls
+          cat some-thing.txt
+          echo "Touched three times" >> some-thing.txt
+          cat some-thing.txt
+
+      - name: Verify persistence 3
+        run: |
+          poetry env info -p
+
       - name: Trigger linting workflow
         if: success()
         uses: peter-evans/repository-dispatch@v1
