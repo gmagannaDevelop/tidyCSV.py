@@ -24,7 +24,7 @@ jobs:
           poetry install
           poetry build
           pip3 install "dist/$(ls -t dist | head -1)"
-          export POETRY_ENV_PATH=$(poetry env info -p) 
+          export POETRY_ENV_PATH='/home/runner/.cache/pypoetry/virtualenvs' 
           echo "POETRY_ENV_PATH=$POETRY_ENV_PATH" >> $GITHUB_ENV
 
       - name: Cache poetry env
