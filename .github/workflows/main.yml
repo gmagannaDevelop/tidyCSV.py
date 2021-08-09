@@ -34,7 +34,6 @@ jobs:
         with:
           path: ${{ env.POETRY_ENV_PATH }}
           key: ${{ runner.os }}-build-${{ env.cache-name }}-pyproj-${{ hashFiles('pyproject.toml')}}-lock-${{ hashFiles('poetry.lock')}}
-        run: ls
 
       - name: Trigger linting workflow
         if: success()
