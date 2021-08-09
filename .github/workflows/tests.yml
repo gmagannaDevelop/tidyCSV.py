@@ -1,8 +1,5 @@
-# This is a basic workflow to help you get started with Actions
-
 name: tests
 
-# Controls when the workflow will run
 on:
   repository_dispatch:
     types: [successful-build-1]
@@ -10,10 +7,9 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+# jobs can run sequentially or in parallel
 jobs:
   tests:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -22,49 +18,17 @@ jobs:
       - uses: actions/checkout@v2
         with:
           ref: ${{ github.event.client_payload.sha }}
-      # use poetry on github actions :
       - uses: Gr1N/setup-poetry@v7
-      # use go on github actions
       - uses: actions/setup-go@v2
-
-      - name: touch something
-        run: |
-          echo
-          ls
-          touch something
-          echo
-
-      #- name: prepend to path
-      #  run: |
-      #    echo 'export PATH=$(go env GOPATH)/bin:$PATH' >> ~/.bashrc
-      #    #cat ~/.bashrc
-
-      #- name: reload and recheck
-      #  run: |
-      #    source ~/.bashrc
-      #    cat ~/.bashrc
-      #    sed 's/:/\n/g' <<< "$PATH"
-
-      #- name: please just work
-      #  env:
-      #    TEST: ${{ secrets.TEST_SECRET }}
-      #    HOLA: ${{ secrets.HOLA }}
-      #  run: |
-      #    echo $TEST
-      #    echo $HOLA
-      #    [[ ! -z "$TEST" ]] && echo "Not empty" || command_not_found
-      #    [[ ! -z "$HOLA" ]] && echo "Not empty" || command_not_found
 
       - name: Install goodls and download data
         env:
           GOODLS_APIKEY: ${{ secrets.GDRIVE_API_KEY }}
           REPO_URL: ${{ secrets.GDRIVE_REPO_URL }}
-          TEST: ${{ secrets.TEST_SECRET }}
         run: |
           [[ ! -z "$GOODLS_APIKEY" ]] && echo "Not empty" || command_not_found
           [[ ! -z "$REPO_URL" ]] && echo "Not empty" || command_not_found
           ls
-          echo "$TEST2"
           go get -u github.com/tanaikech/goodls
           export GOODLS_BIN=$(go env GOPATH)/bin/goodls
           echo $GOODLS_BIN
