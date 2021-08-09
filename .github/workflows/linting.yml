@@ -26,7 +26,7 @@ jobs:
         env:
           cache-name: poetry-env-cache
         with:
-          path: ${{ env.POETRY_ENV_PATH }}
+          path: /home/runner/.cache/pypoetry/virtualenvs
           key: ${{ runner.os }}-build-${{ env.cache-name }}-pyproj-${{ hashFiles('pyproject.toml')}}-lock-${{ hashFiles('poetry.lock')}}
 
       - name: Lint
