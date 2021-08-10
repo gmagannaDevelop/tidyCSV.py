@@ -9,7 +9,7 @@ on:
 
 # jobs can run sequentially or in parallel
 jobs:
-  tests:
+  goodls:
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -21,19 +21,46 @@ jobs:
       - uses: Gr1N/setup-poetry@v7
       - uses: actions/setup-go@v2
 
-      - name: Install goodls and download data
+      - name: goodls_cache
+        uses: actions/cache@v2
+        env:
+          cache-name: goodls-cache
+        with:
+          path: /home/runner/go/bin
+          key: ${{ runner.os }}-tests-${{ env.cache-name }}
+
+      - name: goodls_install
+        if: steps.cache.outputs.cache-hit != 'true'
         env:
           GOODLS_APIKEY: ${{ secrets.GDRIVE_API_KEY }}
           REPO_URL: ${{ secrets.GDRIVE_REPO_URL }}
         run: |
-          #[[ ! -z "$GOODLS_APIKEY" ]] && echo "Not empty" || command_not_found
-          #[[ ! -z "$REPO_URL" ]] && echo "Not empty" || command_not_found
           go get -u github.com/tanaikech/goodls
           export GOODLS_BIN=$(go env GOPATH)/bin/goodls
-          #echo $REPO_URL > .repo_url.txt
-          #$GOODLS_BIN < .repo_url.txt
-          #rm .repo_url.txt
+
+  tests:
+    runs-on: ubuntu-latest
+    needs: goodls
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.client_payload.sha }}
+      - uses: Gr1N/setup-poetry@v7
+      - uses: actions/setup-go@v2
+
+      - name: goodls_cache
+        uses: actions/cache@v2
+        env:
+          cache-name: goodls-cache
+        with:
+          path: /home/runner/go/bin
+          key: ${{ runner.os }}-tests-${{ env.cache-name }}
+
+      - name: download_data
+        env:
+          GOODLS_APIKEY: ${{ secrets.GDRIVE_API_KEY }}
+          REPO_URL: ${{ secrets.GDRIVE_REPO_URL }}
+        run: |
           echo $REPO_URL | $GOODLS_BIN
           mv raw data
-          echo " "
-          ls
