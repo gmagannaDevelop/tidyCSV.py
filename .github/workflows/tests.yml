@@ -21,7 +21,7 @@ jobs:
       - uses: Gr1N/setup-poetry@v7
       - uses: actions/setup-go@v2
 
-      - name: goodls_cache
+      - name: cache
         uses: actions/cache@v2
         env:
           cache-name: goodls-cache
@@ -30,11 +30,11 @@ jobs:
           key: ${{ runner.os }}-tests-${{ env.cache-name }}
 
       - name: goodls_install
-        if: jobs.goodls.goodls_install.outputs.cache-hit != true
+        if: steps.cache.outputs.cache-hit != 'true'
         env:
           GOODLS_APIKEY: ${{ secrets.GDRIVE_API_KEY }}
           REPO_URL: ${{ secrets.GDRIVE_REPO_URL }}
-          CACHE_HIT: jobs.goodls.goodls_install.outputs.cache-hit
+          CACHE_HIT: steps.cache.outputs.cache-hit
         run: |
           echo $CACHE_HIT
           go get -u github.com/tanaikech/goodls
