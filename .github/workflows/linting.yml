@@ -27,8 +27,11 @@ jobs:
           key: ${{ runner.os }}-build-${{ env.cache-name }}-pyproj-${{ hashFiles('pyproject.toml')}}-lock-${{ hashFiles('poetry.lock')}}
 
       - name: cache hit test
-        if: ${{ env.cache-hit }}
-        run: echo 'the cache was hit'
+        if: success()
+        env:
+          CACHE_HIT: ${{ env.cache-hit }}
+        run: |
+          echo $CACHE_HIT
 
       - name: Lint
         run: |
