@@ -24,7 +24,7 @@ jobs:
         env:
           cache-name: poetry-env-cache
         with:
-          path: ${{ env.POETRY_ENV_PATH }}
+          path: /home/runner/.cache/pypoetry/virtualenvs
           key: ${{ runner.os }}-build-${{ env.cache-name }}-pyproj-${{ hashFiles('pyproject.toml')}}-lock-${{ hashFiles('poetry.lock')}}
 
       - name: Create env and install package
@@ -32,8 +32,8 @@ jobs:
           poetry install
           poetry build
           pip3 install "dist/$(ls -t dist | head -1)"
-          export POETRY_ENV_PATH='/home/runner/.cache/pypoetry/virtualenvs' 
-          echo "POETRY_ENV_PATH=$POETRY_ENV_PATH" >> $GITHUB_ENV
+          #export POETRY_ENV_PATH='/home/runner/.cache/pypoetry/virtualenvs' 
+          #echo "POETRY_ENV_PATH=$POETRY_ENV_PATH" >> $GITHUB_ENV
 
       - name: Trigger linting workflow
         if: success()
