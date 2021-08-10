@@ -62,5 +62,6 @@ jobs:
           GOODLS_APIKEY: ${{ secrets.GDRIVE_API_KEY }}
           REPO_URL: ${{ secrets.GDRIVE_REPO_URL }}
         run: |
-          echo $REPO_URL | $GOODLS_BIN
-          mv raw data
+          $GOODLS_BIN --version
+          #echo $REPO_URL | $GOODLS_BIN
+          #mv raw data
