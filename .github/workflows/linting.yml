@@ -18,9 +18,6 @@ jobs:
           ref: ${{ github.event.client_payload.sha }}
       - uses: Gr1N/setup-poetry@v7
 
-      # Runs a set of commands using the runners shell
-      #- name: Setup
-      #  run: poetry install
       - name: Cache poetry env
         uses: actions/cache@v2
         env:
@@ -28,6 +25,10 @@ jobs:
         with:
           path: /home/runner/.cache/pypoetry/virtualenvs
           key: ${{ runner.os }}-build-${{ env.cache-name }}-pyproj-${{ hashFiles('pyproject.toml')}}-lock-${{ hashFiles('poetry.lock')}}
+
+      - name: cache hit test
+        if: ${{ env.cache-hit }}
+        run: echo 'the cache was hit'
 
       - name: Lint
         run: |
