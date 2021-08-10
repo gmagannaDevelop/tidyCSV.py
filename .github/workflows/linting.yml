@@ -26,13 +26,6 @@ jobs:
           path: /home/runner/.cache/pypoetry/virtualenvs
           key: ${{ runner.os }}-build-${{ env.cache-name }}-pyproj-${{ hashFiles('pyproject.toml')}}-lock-${{ hashFiles('poetry.lock')}}
 
-      - name: cache hit test
-        if: success()
-        env:
-          CACHE_HIT: ${{ env.cache-hit }}
-        run: |
-          echo $CACHE_HIT
-
       - name: Lint
         run: |
           poetry run pylint tidycsv/ --ignore=utils | grep -Po '(?<=at)\s(\d\.\d{1,2}|\d\d)/10' | cat > pylint-score.txt
