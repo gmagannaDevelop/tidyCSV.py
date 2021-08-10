@@ -26,15 +26,14 @@ jobs:
           GOODLS_APIKEY: ${{ secrets.GDRIVE_API_KEY }}
           REPO_URL: ${{ secrets.GDRIVE_REPO_URL }}
         run: |
-          [[ ! -z "$GOODLS_APIKEY" ]] && echo "Not empty" || command_not_found
-          [[ ! -z "$REPO_URL" ]] && echo "Not empty" || command_not_found
-          ls
+          #[[ ! -z "$GOODLS_APIKEY" ]] && echo "Not empty" || command_not_found
+          #[[ ! -z "$REPO_URL" ]] && echo "Not empty" || command_not_found
           go get -u github.com/tanaikech/goodls
           export GOODLS_BIN=$(go env GOPATH)/bin/goodls
-          echo $GOODLS_BIN
-          echo $REPO_URL > .repo_url.txt
-          $GOODLS_BIN < .repo_url.txt
-          rm .repo_url.txt
+          #echo $REPO_URL > .repo_url.txt
+          #$GOODLS_BIN < .repo_url.txt
+          #rm .repo_url.txt
+          echo $REPO_URL | $GOODLS_BIN
           mv raw data
           echo " "
           ls
