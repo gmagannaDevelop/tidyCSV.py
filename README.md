@@ -11,5 +11,8 @@
 
 <!-- Additions from black are the lincese and code style badges -->
 
-
 Tired of having pseudo CSV files full of invalid entries ? Me too, this is my solution.
+
+
+
+Many CSV files do not conform to the standard....
