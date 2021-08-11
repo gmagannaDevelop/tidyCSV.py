@@ -18,9 +18,6 @@ jobs:
           ref: ${{ github.event.client_payload.sha }}
       - uses: Gr1N/setup-poetry@v7
 
-      # Runs a set of commands using the runners shell
-      #- name: Setup
-      #  run: poetry install
       - name: Cache poetry env
         uses: actions/cache@v2
         env:

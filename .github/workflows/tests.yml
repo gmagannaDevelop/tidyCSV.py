@@ -66,6 +66,5 @@ jobs:
           REPO_URL: ${{ secrets.GDRIVE_REPO_URL }}
           GOODLS_BIN: /home/runner/go/bin/goodls
         run: |
-          #$GOODLS_BIN --version
           echo $REPO_URL | $GOODLS_BIN
           mv raw data
