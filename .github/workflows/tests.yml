@@ -41,7 +41,7 @@ jobs:
           go get -u github.com/tanaikech/goodls
           #export GOODLS_BIN=$(go env GOPATH)/bin/goodls
 
-  tests:
+  data_download:
     runs-on: ubuntu-latest
     needs: goodls
     steps:
@@ -60,7 +60,14 @@ jobs:
           path: /home/runner/go/bin
           key: ${{ runner.os }}-tests-${{ env.cache-name }}
 
+      - name: download_artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: data
+
       - name: download_data
+        id: download
+        if: failure()
         env:
           GOODLS_APIKEY: ${{ secrets.GDRIVE_API_KEY }}
           REPO_URL: ${{ secrets.GDRIVE_REPO_URL }}
@@ -68,3 +75,9 @@ jobs:
         run: |
           echo $REPO_URL | $GOODLS_BIN
           mv raw data
+
+      - name: save_artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: data
+          path: data
