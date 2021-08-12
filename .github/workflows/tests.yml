@@ -9,7 +9,32 @@ on:
 
 # jobs can run sequentially or in parallel
 jobs:
+  # DATA CHECKS
+  data_check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: download_artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: data
+
+  data_recheck:
+    needs: [data_check, data_download]
+    if: always()
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: download_artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: data
+  # END DATA CHECKS
+
+  # CACHING AND ARTIFACT GENERATION
   goodls:
+    needs: data_check
+    if: failure()
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -35,15 +60,13 @@ jobs:
         env:
           GOODLS_APIKEY: ${{ secrets.GDRIVE_API_KEY }}
           REPO_URL: ${{ secrets.GDRIVE_REPO_URL }}
-          #CACHE_HIT: ${{ steps.cache.outputs.cache-hit }}
         run: |
-          #echo $CACHE_HIT
           go get -u github.com/tanaikech/goodls
-          #export GOODLS_BIN=$(go env GOPATH)/bin/goodls
 
   data_download:
     runs-on: ubuntu-latest
     needs: goodls
+    if: success()
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
@@ -60,11 +83,6 @@ jobs:
           path: /home/runner/go/bin
           key: ${{ runner.os }}-tests-${{ env.cache-name }}
 
-      - name: download_artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: data
-
       - name: download_data
         id: download
         if: failure()
@@ -77,8 +95,34 @@ jobs:
           mv raw data
 
       - name: save_artifact
-        if: always()
         uses: actions/upload-artifact@v2
         with:
           name: data
           path: data
+  # END CACHING AND ARTIFACT GENERATION
+
+  tests:
+    runs-on: ubuntu-latest
+    needs: data_recheck
+    if: success()
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.client_payload.sha }}
+      - uses: Gr1N/setup-poetry@v7
+
+      - name: Cache poetry env
+        uses: actions/cache@v2
+        env:
+          cache-name: poetry-env-cache
+        with:
+          path: /home/runner/.cache/pypoetry/virtualenvs
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-pyproj-${{ hashFiles('pyproject.toml')}}-lock-${{ hashFiles('poetry.lock')}}
+
+      - name: download_artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: data
+
+      - name: tests
+        run: poetry run pytest
