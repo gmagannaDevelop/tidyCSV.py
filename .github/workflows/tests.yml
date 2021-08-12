@@ -104,6 +104,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: data
+          path: data
 
       - name: tests
         run: |
