@@ -56,13 +56,13 @@ class Path(_Path_):
 
 
 class WindowsPath(_WindowsPath_, Path):
-    """ Helper for EZPath """
+    """Helper for EZPath"""
 
     pass
 
 
 class PosixPath(_PosixPath_, Path):
-    """ Helper for EZPath """
+    """Helper for EZPath"""
 
     pass
 
