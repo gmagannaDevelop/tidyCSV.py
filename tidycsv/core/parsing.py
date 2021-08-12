@@ -1,5 +1,23 @@
 """
+    Parsing functions
+
+    All the functions needed to parse an arbitrary
+    csv file and find the biggest semantically coherent
+    group (set) of lines.
+
+    This maximum set is what we call a "tidy csv",
+    implying that the underlying idea of a consistent
+    comma-separated observations are present.
+
+    Some programs can "magically" parse poorly specified,
+    invalid, and heterogeneous csv files.
+    This is not the case for all functions. This set of functions
+    aims to be this interface which allows other programs to access
+    data from a csv file even when it has been poorly written.
+
 """
+
+# TODO : review or shorten docstring ?
 
 from io import StringIO
 from pathlib import Path
@@ -37,8 +55,8 @@ def get_csv_counts(file: Union[str, Path]) -> Dict[int, List[str]]:
                 ]
             }
     """
-    with open(file, "r") as f:
-        lines: List[str] = f.readlines()
+    with open(file, "r") as file_reader:
+        lines: List[str] = file_reader.readlines()
 
     csv_counts: Dict[int, List[str]] = {}
 
