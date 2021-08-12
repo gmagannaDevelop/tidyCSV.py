@@ -19,15 +19,16 @@
 
 # TODO : review or shorten docstring ?
 
-from io import StringIO
 from pathlib import Path
-from typing import Dict, List, Union
+from typing import Dict, List, Union, Optional
 from functools import reduce
 
 __all__ = ["get_csv_counts", "get_maximum_csv_group"]
 
 
-def get_csv_counts(file: Union[str, Path]) -> Dict[int, List[str]]:
+def get_csv_counts(
+    file: Union[str, Path], separator: Optional[str] = None
+) -> Dict[int, List[str]]:
     """
     Get groups of semantically consistsent csv lines.
     i.e. same number of commas
@@ -36,6 +37,10 @@ def get_csv_counts(file: Union[str, Path]) -> Dict[int, List[str]]:
     ----------
         file : a string, pathlib.Path to used within a
                call to `open(file, "r") as f`.
+
+        separator: (optional) a string indicating the token
+                    that is to be taken as column delimiter.
+                    it defaults to ","
 
     Returns
     -------
@@ -55,13 +60,15 @@ def get_csv_counts(file: Union[str, Path]) -> Dict[int, List[str]]:
                 ]
             }
     """
+    _separator: str = separator or ","
+
     with open(file, "r") as file_reader:
         lines: List[str] = file_reader.readlines()
 
     csv_counts: Dict[int, List[str]] = {}
 
     for line in lines:
-        n_commas: int = line.count(",")
+        n_commas: int = line.count(_separator)
         if n_commas in csv_counts.keys():
             csv_counts[n_commas].append(line)
         else:
