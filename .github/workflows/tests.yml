@@ -108,5 +108,14 @@ jobs:
 
       - name: tests
         run: |
-          ls
           poetry run pytest
+          poetry run pytest --cov=tidycsv/ --cov-report=xml
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2
+        with:
+          files: ./coverage.xml # optional
+          flags: unittests # optional
+          name: codecov-umbrella # optional
+          fail_ci_if_error: true # optional (default = false)
+          verbose: true # optional (default = false)
