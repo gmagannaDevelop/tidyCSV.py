@@ -106,4 +106,6 @@ jobs:
           name: data
 
       - name: tests
-        run: poetry run pytest
+        run: |
+          ls
+          poetry run pytest
