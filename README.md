@@ -35,7 +35,13 @@ Eventually I would like this project to become a command line tool as well as ha
 
 ## Installation
 
-I will publish it to PyPI when I have the time to write further tests. Meanwhile you can install it using :
+The package has been published to PyPI! You can install it as any other package using **pip** (I recommend installing it 
+within a virtual environment created in a per project basis).
+```bash
+pip install tidycsv
+```
+
+Otherwise you can install the latest development version using:
 
 ```bash
 pip install git+https://github.com/gmagannaDevelop/tidyCSV.py
