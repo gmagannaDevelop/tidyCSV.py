@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "tidycsv"
-version = "0.1.0"
+version = "0.1.0a"
 description = "A minimalistic solution to messy CSV files."
 authors = ["Gustavo Magaña López <gmaganna.biomed@gmail.com>"]
 license = "MIT"
