@@ -33,12 +33,16 @@ class TidyCSV:
     """
 
     def __init__(
-        self, csv_file: Union[str, pathlib.Path], separator: Optional[str] = None
+        self,
+        csv_file: Union[str, pathlib.Path],
+        remove_duplicates: bool = True,
+        separator: Optional[str] = None,
     ):
         self._csv_file: Union[str, pathlib.Path] = csv_file
         self._separator: str = separator or ","
+        self._remove_duplicates: bool = True
         self.__csv_groups: Dict[int, List[str]]
-        self._max_group: List[str]
+        self._max_group: List[str] = []
         self._tidy_handle: StringIO
 
     def __repr__(self):
@@ -50,7 +54,16 @@ class TidyCSV:
             self._csv_file, separator=self._separator
         )
         # Select the largest
-        self._max_group = tidyparsing.get_maximum_csv_group(self.__csv_groups)
+        _tmp_max_group = tidyparsing.get_maximum_csv_group(self.__csv_groups)
+        if self._remove_duplicates:
+            _tmp_line_dict = {}
+            for line in _tmp_max_group:
+                if line not in _tmp_line_dict.keys():
+                    _tmp_line_dict.update({line: None})
+                    self._max_group.append(line)
+        else:
+            self._max_group = _tmp_max_group
+
         # Create a handle joining the lines contained in the largest group
         self._tidy_handle = StringIO("".join(self._max_group))
         return self._tidy_handle
