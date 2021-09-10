@@ -12,22 +12,26 @@ from .core import parsing as tidyparsing
 class TidyCSV:
     """
     A context manager that allows accessing the largest
-    (by number of lines) group of coherent csv entries.
+    (by number of lines) group of semantically coherent 
+    csv entries (that means having the same number of columns).
 
-    >>> with TidyCSV("my-file.csv") as tidy:
+    By default, TidyCSV will remove all duplicate entries.
+    This behaviour can be modified via the remove-duplicates parameter :
+
+    >>> with TidyCSV("my-file.csv", remove_duplicates=False) as tidy:
     >>>    x = tidy.readlines()
 
-    Or even better:
+    The main intended use is reading otherwise unparsable files 
+    into a pandas DataFrame :
 
     >>> import pandas as pd
     >>> with TidyCSV("my-file.csv") as tidy:
     >>>    x = pd.read_csv(tidy)
 
-    If the separator is not a comma, then it shouldn't be called
-    a csv, but anyways here's how to tell that to TidyCSV:
+    If the separator is not a comma, here's how to tell that to TidyCSV:
 
     >>> import pandas as pd
-    >>> with TidyCSV("my-file.csv", ";") as tidy:
+    >>> with TidyCSV("my-file.csv", separator=";") as tidy:
     >>>    x = pd.read_csv(tidy)
 
     """
