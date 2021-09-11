@@ -1,11 +1,11 @@
 [tool.poetry]
 name = "tidycsv"
-version = "0.1.1"
+version = "0.1.2"
 description = "A minimalistic solution to messy CSV files."
 authors = ["Gustavo Magaña López <gmaganna.biomed@gmail.com>"]
 license = "MIT"
 readme = "README.md"
-repository = "https://github.com/python-poetry/poetry"
+repository = "https://github.com/gmagannaDevelop/tidyCSV.py"
 
 [tool.poetry.dependencies]
 python = "^3.8"
