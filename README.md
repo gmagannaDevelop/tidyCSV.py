@@ -7,6 +7,9 @@
 ![](https://enlyvfs9zh2z4g7.m.pipedream.net)
 
 ![](https://img.shields.io/github/last-commit/gmagannaDevelop/tidyCSV.py)
+<a href="https://pypi.org/project/tidycsv/">
+   <img alt="PyPI Downloads" src="https://img.shields.io/pypi/dm/tidycsv?color=blue">
+</a>
 <a href="https://github.com/psf/black">
 	<img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg">
 </a>
@@ -16,6 +19,7 @@
 <a href="https://lifecycle.r-lib.org/articles/stages.html">
 	<img alt="experimental" src="https://img.shields.io/badge/lifecycle-experimental-orange"> 
  </a>
+
 
 <!-- Additions from black are the lincese and code style badges -->
 
